@@ -31,7 +31,7 @@ const testimonials = [
 
 <section
   id="testimonials"
-  class="relative bg-gray-950 py-16 overflow-hidden scroll-mt-[80px]"
+  class="relative bg-gray-950 py-20 overflow-hidden scroll-mt-[80px]"
 >
   {/* Background grid */}
   <div class="absolute inset-0 opacity-60">
@@ -42,13 +42,11 @@ const testimonials = [
     <div class="max-w-7xl mx-auto">
 
       {/* Header */}
-      <div class="text-center mb-10 animate-fade-in">
-        <div class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-yellow-500/10 backdrop-blur-sm border border-yellow-500/30 mb-6">
-          <Quote class="w-5 h-5 text-yellow-400" />
-          <span class="text-yellow-100 font-semibold">Client Testimonials</span>
+      <div class="text-center mb-12 animate-fade-in">
+        <div class="inline-block px-4 py-1 rounded-full bg-yellow-500/10 backdrop-blur-sm border border-yellow-500/20 mb-4 animate-fade-in">
+          <span class="text-yellow-400 font-medium">Client Testimonials</span>
         </div>
-
-        <h2 class="text-4xl md:text-5xl font-bold mb-5">
+        <h2 class="text-5xl md:text-6xl font-bold mb-5">
           <span class="bg-linear-to-r from-white via-gray-100 to-white text-transparent bg-clip-text">
             What Our
           </span>
@@ -64,7 +62,7 @@ const testimonials = [
       </div>
 
       {/* Testimonial Cards */}
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         {testimonials.map((testimonial) => (
           <div class="group relative animate-slide-up">
             <div class="relative p-8 rounded-3xl border-2 border-yellow-500/40 backdrop-blur-sm bg-linear-to-br from-black/80 via-gray-900/60 to-black/80 hover:border-yellow-500/80 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/20 transition-all duration-300 h-full">
@@ -101,7 +99,7 @@ const testimonials = [
       </div>
 
       {/* CTA */}
-      <div class="text-center mt-8 animate-fade-in">
+      <div class="text-center mt-12 animate-fade-in">
         <p class="text-xl text-gray-200 mb-6">Ready to join our satisfied clients?</p>
         <button
           id="testimonials-cta"
