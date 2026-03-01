@@ -108,7 +108,7 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 translate-y-0 ${scrolled ? "bg-black/90 backdrop-blur-xl border-b border-yellow-500/30 shadow-2xl" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 translate-y-0 ${scrolled || mobileMenuOpen ? "bg-black border-b border-yellow-500/30 shadow-2xl" : "bg-transparent"
         }`}
     >
       {/* Desktop Navigation */}
@@ -155,8 +155,8 @@ export default function Nav() {
               <button
                 key={section.id}
                 className={`px-4 py-2 transition-colors duration-300 relative ${activeSection === section.id
-                  ? "text-yellow-400"
-                  : "text-gray-300 hover:text-yellow-400"
+                    ? "text-yellow-400"
+                    : "text-gray-300 hover:text-yellow-400"
                   }`}
                 onClick={() => scrollToSection(section.id)}
               >
@@ -190,7 +190,7 @@ export default function Nav() {
               onEnter={() => setPhoneHovered(true)}
               onLeave={() => setPhoneHovered(false)}
             >
-              <div className="flex items-center gap-3 min-w-50">
+              <div className="flex items-center gap-3 min-w-[200px]">
                 <div>
                   <p className="text-yellow-400 font-semibold text-sm">Call Now</p>
                   <p className="text-white text-sm">(704) 879-4057</p>
@@ -230,7 +230,7 @@ export default function Nav() {
               onEnter={() => setEmailHovered(true)}
               onLeave={() => setEmailHovered(false)}
             >
-              <div className="flex items-center gap-3 min-w-70">
+              <div className="flex items-center gap-3 min-w-[280px]">
                 <div className="flex-1">
                   <p className="text-yellow-400 font-semibold text-sm">Send Email</p>
                   <p className="text-white text-sm break-all">electricco.cnc@gmail.com</p>
@@ -313,36 +313,80 @@ export default function Nav() {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — slide down full screen */}
       <div
-        className={`xl:hidden fixed inset-x-0 top-16 bg-black border-t border-yellow-500/30 transition-all duration-300 ${mobileMenuOpen ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-4 pointer-events-none"
+        className={`xl:hidden fixed inset-x-0 top-16 z-40 transition-all duration-300 ${mobileMenuOpen
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 -translate-y-3 pointer-events-none"
           }`}
         style={{ height: "calc(100vh - 4rem)" }}
       >
-        <nav className="overflow-y-auto h-full">
-          {navSections.map((section) =>
-            section.isExternalRoute ? (
-              <a
-                href={section.path}
-                key={section.id}
-                className="block w-full text-left px-6 py-4 text-gray-200 hover:text-yellow-400 border-b border-gray-800 transition-colors duration-300"
-              >
-                {section.label}
-              </a>
-            ) : (
-              <button
-                key={section.id}
-                className={`block w-full text-left px-6 py-4 border-b border-gray-800 transition-colors duration-300 ${activeSection === section.id
-                  ? "text-yellow-400 bg-yellow-400/10"
-                  : "text-gray-200 hover:text-yellow-400"
-                  }`}
-                onClick={() => scrollToSection(section.id)}
-              >
-                {section.label}
-              </button>
-            )
-          )}
-        </nav>
+        <div className="bg-black h-full flex flex-col border-t border-yellow-500/30">
+
+          {/* Nav links */}
+          <nav className="px-4 pt-4 pb-2 flex-1">
+            {navSections.map((section) =>
+              section.isExternalRoute ? (
+                <a
+                  href={section.path}
+                  key={section.id}
+                  className="flex items-center justify-between px-4 py-4 rounded-xl text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/5 transition-all duration-200 group"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <span className="font-medium text-lg">{section.label}</span>
+                  <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </a>
+              ) : (
+                <button
+                  key={section.id}
+                  className={`w-full flex items-center justify-between px-4 py-4 rounded-xl transition-all duration-200 group ${activeSection === section.id
+                      ? "text-yellow-400 bg-yellow-500/10"
+                      : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/5"
+                    }`}
+                  onClick={() => scrollToSection(section.id)}
+                >
+                  <span className="font-medium text-lg">{section.label}</span>
+                  {activeSection === section.id ? (
+                    <span className="w-2 h-2 rounded-full bg-yellow-400" />
+                  ) : (
+                    <svg className="w-4 h-4 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  )}
+                </button>
+              )
+            )}
+          </nav>
+
+          {/* Divider */}
+          <div className="mx-4 border-t border-yellow-500/20" />
+
+          {/* Bottom row — social + contact */}
+          <div className="flex items-center justify-between px-6 py-5">
+            <div className="flex items-center gap-1">
+              {socialMediaLinks.map((social) => (
+                <a
+                  key={social.id}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 text-gray-500 hover:text-yellow-400 transition-colors duration-200"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
+            <a href="tel:7048794057" className="flex items-center gap-1.5 text-sm text-gray-500 hover:text-yellow-400 transition-colors duration-200">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              (704) 879-4057
+            </a>
+          </div>
+
+        </div>
       </div>
     </header>
   );
