@@ -1,1 +1,31 @@
 @import "tailwindcss";
+
+/* ----------------------------------------
+   Scroll-reveal animation (direction-aware)
+   Add class="reveal" to any element.
+   Optionally add style="transition-delay: Xs" for stagger.
+   initReveal("#section-id") will trigger it on scroll.
+---------------------------------------- */
+
+/* Hidden by default — fallback assumes scrolling down */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+/* Scrolling down → element enters from bottom → slides up */
+.reveal[data-reveal-dir="up"] {
+  transform: translateY(28px);
+}
+
+/* Scrolling up → element enters from top → slides down */
+.reveal[data-reveal-dir="down"] {
+  transform: translateY(-28px);
+}
+
+/* Visible state */
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}

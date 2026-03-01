@@ -39,10 +39,10 @@ const cards = [
 
   {/* Main Content */}
   <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-20 md:pt-16 lg:pt-0">
-    <div class="text-center animate-fade-in">
+    <div class="text-center">
 
       {/* Logo Icon */}
-      <div class="mb-6 sm:mb-8 animate-slide-up" style="animation-delay: 0s">
+      <div class="reveal mb-6 sm:mb-8" style="transition-delay: 0s">
         <div class="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-linear-to-br from-yellow-400 to-yellow-600 rounded-full shadow-lg">
           <Zap class="w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 text-black" />
         </div>
@@ -50,8 +50,8 @@ const cards = [
 
       {/* Main Headline */}
       <h1
-        class="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight px-2 animate-slide-up"
-        style="animation-delay: 0.2s"
+        class="reveal text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight px-2"
+        style="transition-delay: 0.15s"
       >
         Powering Your{" "}
         <span class="text-transparent bg-clip-text bg-linear-to-r from-yellow-400 to-yellow-600">
@@ -61,23 +61,23 @@ const cards = [
 
       {/* Subheading */}
       <p
-        class="text-lg sm:text-xl md:text-2xl text-gray-200 mb-3 sm:mb-4 max-w-3xl mx-auto px-2 animate-slide-up"
-        style="animation-delay: 0.4s"
+        class="reveal text-lg sm:text-xl md:text-2xl text-gray-200 mb-3 sm:mb-4 max-w-3xl mx-auto px-2"
+        style="transition-delay: 0.3s"
       >
         Leading Commercial & Industrial Electricians in North Carolina.
       </p>
 
       <p
-        class="text-sm sm:text-base md:text-lg text-yellow-200 mb-6 sm:mb-8 font-light animate-slide-up"
-        style="animation-delay: 0.5s"
+        class="reveal text-sm sm:text-base md:text-lg text-yellow-200 mb-6 sm:mb-8 font-light"
+        style="transition-delay: 0.4s"
       >
         Efficiency · Reliability · Innovation
       </p>
 
       {/* Stats */}
       <div
-        class="grid grid-cols-2 gap-4 sm:gap-8 mb-8 sm:mb-12 max-w-2xl mx-auto px-2 animate-slide-up"
-        style="animation-delay: 0.6s"
+        class="reveal grid grid-cols-2 gap-4 sm:gap-8 mb-8 sm:mb-12 max-w-2xl mx-auto px-2"
+        style="transition-delay: 0.5s"
       >
         {stats.map((stat) => (
           <div class="text-center">
@@ -92,7 +92,7 @@ const cards = [
       </div>
 
       {/* CTA Button - Mobile */}
-      <div class="mb-6 sm:mb-8 md:mb-16 animate-slide-up md:hidden" style="animation-delay: 0.8s">
+      <div class="reveal mb-6 sm:mb-8 md:mb-16 md:hidden" style="transition-delay: 0.6s">
         <button
           id="cta-mobile"
           class="bg-linear-to-r from-yellow-500 to-yellow-600 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-lg text-base sm:text-lg font-semibold hover:from-yellow-400 hover:to-yellow-500 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 shadow-[0_4px_15px_rgba(234,179,8,0.3)] hover:shadow-[0_8px_25px_rgba(234,179,8,0.4)]"
@@ -102,9 +102,9 @@ const cards = [
       </div>
 
       {/* Mobile Info Cards */}
-      <div class="grid gap-3 sm:gap-4 max-w-md mx-auto md:hidden px-2 animate-slide-up" style="animation-delay: 1s">
+      <div class="grid gap-3 sm:gap-4 max-w-md mx-auto md:hidden px-2">
         {cards.map((card, i) => (
-          <div class="bg-black/50 backdrop-blur-sm border border-yellow-500/30 rounded-lg p-3 sm:p-4 hover:border-yellow-500/50 transition-all duration-300">
+          <div class="reveal bg-black/50 backdrop-blur-sm border border-yellow-500/30 rounded-lg p-3 sm:p-4 hover:border-yellow-500/50 transition-all duration-300" style={`transition-delay: ${0.7 + i * 0.1}s`}>
             <div class="flex items-start space-x-3">
               <div class="bg-yellow-500/20 p-2 rounded-full shrink-0">
                 {i === 0
@@ -134,8 +134,8 @@ const cards = [
 
       {/* Location Card - Bottom Left */}
       <div
-        class="absolute bottom-8 left-4 lg:left-8 bg-black/50 backdrop-blur-sm border border-yellow-500/30 rounded-lg p-4 hover:border-yellow-500/50 transition-all duration-300 max-w-xs hidden md:block pointer-events-auto animate-slide-up"
-        style="animation-delay: 1s"
+        class="reveal absolute bottom-8 left-4 lg:left-8 bg-black/50 backdrop-blur-sm border border-yellow-500/30 rounded-lg p-4 hover:border-yellow-500/50 transition-all duration-300 max-w-xs hidden md:block pointer-events-auto"
+        style="transition-delay: 0.7s"
       >
         <div class="flex items-start space-x-3">
           <div class="bg-yellow-500/20 p-2 rounded-full">
@@ -154,8 +154,8 @@ const cards = [
 
       {/* Business Hours Card - Bottom Right */}
       <div
-        class="absolute bottom-8 right-4 lg:right-8 bg-black/50 backdrop-blur-sm border border-yellow-500/30 rounded-lg p-4 hover:border-yellow-500/50 transition-all duration-300 max-w-xs hidden md:block pointer-events-auto animate-slide-up"
-        style="animation-delay: 1.1s"
+        class="reveal absolute bottom-8 right-4 lg:right-8 bg-black/50 backdrop-blur-sm border border-yellow-500/30 rounded-lg p-4 hover:border-yellow-500/50 transition-all duration-300 max-w-xs hidden md:block pointer-events-auto"
+        style="transition-delay: 0.8s"
       >
         <div class="flex items-start space-x-3">
           <div class="bg-yellow-500/20 p-2 rounded-full">
@@ -173,8 +173,8 @@ const cards = [
 
       {/* CTA Button - Desktop Center */}
       <div
-        class="absolute bottom-24 left-1/2 -translate-x-1/2 hidden md:block pointer-events-auto animate-slide-up"
-        style="animation-delay: 0.8s"
+        class="reveal absolute bottom-24 left-1/2 -translate-x-1/2 hidden md:block pointer-events-auto"
+        style="transition-delay: 0.6s"
       >
         <button
           id="cta-desktop"
@@ -186,8 +186,8 @@ const cards = [
 
       {/* Scroll Indicator */}
       <div
-        class="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block animate-fade-in"
-        style="animation-delay: 2s"
+        class="reveal absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block"
+        style="transition-delay: 1s"
       >
         <div class="w-6 h-10 rounded-full border-2 border-yellow-500/50 flex items-start justify-center animate-bounce">
           <div class="w-1 h-2 bg-yellow-400/80 rounded-full mt-2" />
@@ -198,27 +198,10 @@ const cards = [
   </div>
 </section>
 
-<style>
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes slide-up {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.8s ease-out both;
-  }
-
-  .animate-slide-up {
-    animation: slide-up 0.6s ease-out both;
-  }
-</style>
-
 <script>
+  import { initReveal } from "../utils/reveal";
+  initReveal("#hero");
+
   // Scroll parallax
   const bg = document.getElementById("parallax-bg");
   window.addEventListener("scroll", () => {

@@ -8,7 +8,6 @@ const testimonials = [
     content: "C&C Construction and Electrical exceeded our expectations on a commercial renovation project. Their team was punctual and professional every step of the way. The electrical work was clean, up to code, and finished ahead of schedule. I highly recommend them for any business in need of dependable contractors.",
     icon: CheckCircle,
     gradient: "from-yellow-400 via-amber-500 to-yellow-600",
-    offset: "md:mr-20",
   },
   {
     rating: 5,
@@ -16,7 +15,6 @@ const testimonials = [
     content: "We've worked with a lot of subcontractors over the years, and C&C stands out. They were transparent with their pricing, stuck to the agreed timeline, and took pride in their work. We'll definitely be partnering with them again.",
     icon: Award,
     gradient: "from-amber-400 via-yellow-500 to-orange-500",
-    offset: "md:ml-20",
   },
   {
     rating: 5,
@@ -24,7 +22,6 @@ const testimonials = [
     content: "C&C has helped us on several residential and light commercial projects, and they always deliver. Their crew is professional and easy to work with, plus they keep the job site clean. Great communication and trustworthy leadership. You can tell they care about doing it right.",
     icon: Zap,
     gradient: "from-yellow-500 via-amber-500 to-yellow-400",
-    offset: "md:mr-20",
   },
 ];
 ---
@@ -42,11 +39,11 @@ const testimonials = [
     <div class="max-w-7xl mx-auto">
 
       {/* Header */}
-      <div class="text-center mb-12 animate-fade-in">
-        <div class="inline-block px-4 py-1 rounded-full bg-yellow-500/10 backdrop-blur-sm border border-yellow-500/20 mb-4 animate-fade-in">
+      <div class="text-center mb-12">
+        <div class="reveal inline-block px-4 py-1 rounded-full bg-yellow-500/10 backdrop-blur-sm border border-yellow-500/20 mb-4">
           <span class="text-yellow-400 font-medium">Client Testimonials</span>
         </div>
-        <h2 class="text-5xl md:text-6xl font-bold mb-5">
+        <h2 class="reveal text-5xl md:text-6xl font-bold mb-5" style="transition-delay: 0.1s">
           <span class="bg-linear-to-r from-white via-gray-100 to-white text-transparent bg-clip-text">
             What Our
           </span>
@@ -55,16 +52,18 @@ const testimonials = [
             Clients Say
           </span>
         </h2>
-
-        <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+        <p class="reveal text-lg text-gray-300 max-w-2xl mx-auto" style="transition-delay: 0.2s">
           Real feedback from real clients who trust C&C Construction and Electrical
         </p>
       </div>
 
       {/* Testimonial Cards */}
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {testimonials.map((testimonial) => (
-          <div class="group relative animate-slide-up">
+        {testimonials.map((testimonial, index) => (
+          <div
+            class="reveal group relative"
+            style={`transition-delay: ${0.3 + index * 0.1}s`}
+          >
             <div class="relative p-8 rounded-3xl border-2 border-yellow-500/40 backdrop-blur-sm bg-linear-to-br from-black/80 via-gray-900/60 to-black/80 hover:border-yellow-500/80 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/20 transition-all duration-300 h-full">
 
               {/* Corner icon */}
@@ -99,7 +98,7 @@ const testimonials = [
       </div>
 
       {/* CTA */}
-      <div class="text-center mt-12 animate-fade-in">
+      <div class="reveal text-center mt-12" style="transition-delay: 0.6s">
         <p class="text-xl text-gray-200 mb-6">Ready to join our satisfied clients?</p>
         <button
           id="testimonials-cta"
@@ -116,27 +115,10 @@ const testimonials = [
   </div>
 </section>
 
-<style>
-  @keyframes fade-in {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes slide-up {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 0.6s ease-out both;
-  }
-
-  .animate-slide-up {
-    animation: slide-up 0.7s ease-out both;
-  }
-</style>
-
 <script>
+  import { initReveal } from "../utils/reveal";
+  initReveal("#testimonials");
+
   document.getElementById("testimonials-cta")?.addEventListener("click", () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   });

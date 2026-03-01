@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import blueRidgeMountain from "../assets/BlueMountainRidge.png";
 import dunkinDonutsImg from "../assets/DunkinDonuts.png";
@@ -81,10 +81,46 @@ const projects: Project[] = [
   },
 ];
 
+// Mirror of initReveal but for React — runs once on mount
+function useReveal(sectionRef: React.RefObject<HTMLElement | null>, threshold = 0.15) {
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const enteringFromBottom = entry.boundingClientRect.top > window.innerHeight / 2;
+            entry.target.setAttribute("data-reveal-dir", enteringFromBottom ? "up" : "down");
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                entry.target.classList.add("revealed");
+              });
+            });
+          } else {
+            entry.target.classList.remove("revealed");
+            entry.target.removeAttribute("data-reveal-dir");
+            (entry.target as HTMLElement).style.transitionDelay = "0s";
+          }
+        });
+      },
+      { threshold }
+    );
+
+    section.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [sectionRef, threshold]);
+}
+
 export default function Portfolio() {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useReveal(sectionRef);
 
   const goToIndex = (index: number) => {
     if (isTransitioning) return;
@@ -122,6 +158,7 @@ export default function Portfolio() {
   return (
     <section
       id="projects"
+      ref={sectionRef}
       className="relative min-h-screen flex justify-center items-center bg-gray-950 py-10 overflow-hidden scroll-mt-20"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -143,29 +180,28 @@ export default function Portfolio() {
 
           {/* Header */}
           <div className="flex flex-col items-center mb-6">
-            <div className="inline-block px-4 py-1 rounded-full bg-yellow-500/10 backdrop-blur-sm border border-yellow-500/20 mb-6">
+            <div className="reveal inline-block px-4 py-1 rounded-full bg-yellow-500/10 backdrop-blur-sm border border-yellow-500/20 mb-6">
               <span className="text-yellow-400 font-medium">Our Portfolio</span>
             </div>
 
-            <h2 className="text-5xl font-extrabold mb-6 text-center leading-tight">
+            <h2 className="reveal text-5xl font-extrabold mb-6 text-center leading-tight" style={{ transitionDelay: "0.1s" }}>
               <span className="bg-linear-to-r from-yellow-300 via-yellow-400 to-yellow-600 text-transparent bg-clip-text">
                 Featured Projects
               </span>
               <span className="block text-white mt-2">That Showcase Our Expertise</span>
             </h2>
 
-            <div className="h-1 w-20 bg-linear-to-r from-yellow-400 to-yellow-600 rounded mb-6" />
+            <div className="reveal h-1 w-20 bg-linear-to-r from-yellow-400 to-yellow-600 rounded mb-6" style={{ transitionDelay: "0.2s" }} />
 
-            <p className="text-xl leading-relaxed text-gray-300 text-center max-w-xl">
+            <p className="reveal text-xl leading-relaxed text-gray-300 text-center max-w-xl" style={{ transitionDelay: "0.3s" }}>
               Explore our recent electrical projects that demonstrate our commitment to quality, safety, and cutting-edge solutions.
             </p>
           </div>
 
           {/* Carousel */}
-          <div className="relative overflow-hidden rounded-2xl border border-yellow-500/20 shadow-2xl shadow-yellow-600/10">
+          <div className="reveal relative overflow-hidden rounded-2xl border border-yellow-500/20 shadow-2xl shadow-yellow-600/10" style={{ transitionDelay: "0.4s" }}>
             <div
-              className={`grid grid-cols-1 lg:grid-cols-2 transition-opacity duration-300 ${isTransitioning ? "opacity-0" : "opacity-100"
-                }`}
+              className={`grid grid-cols-1 lg:grid-cols-2 transition-opacity duration-300 ${isTransitioning ? "opacity-0" : "opacity-100"}`}
             >
               {/* Image */}
               <div className="relative h-64 lg:h-100">
@@ -242,9 +278,7 @@ export default function Portfolio() {
                 <button
                   key={index}
                   onClick={() => goToIndex(index)}
-                  className={`h-2 rounded-full transition-all duration-300 ${currentIndex === index
-                    ? "w-8 bg-yellow-500"
-                    : "w-2 bg-white/30 hover:bg-yellow-400/50"
+                  className={`h-2 rounded-full transition-all duration-300 ${currentIndex === index ? "w-8 bg-yellow-500" : "w-2 bg-white/30 hover:bg-yellow-400/50"
                     }`}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -253,7 +287,7 @@ export default function Portfolio() {
           </div>
 
           {/* Bottom CTA */}
-          <div className="mt-6 text-center">
+          <div className="reveal mt-6 text-center" style={{ transitionDelay: "0.5s" }}>
             <p className="text-xl text-gray-300 mb-6">
               Ready to transform your commercial or industrial electrical systems?
             </p>

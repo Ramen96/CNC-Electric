@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Phone, Mail, MapPin } from "lucide-react";
 import MapComponent from "./mapComponent";
+import { initReveal } from "../utils/reveal";
 
 interface ContactFormData {
   name: string;
@@ -61,6 +62,10 @@ export default function Contact() {
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [checkboxChecked, setCheckboxChecked] = useState<boolean>(true);
+
+  useEffect(() => {
+    initReveal("#contact");
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { id, value } = e.target;
@@ -156,13 +161,13 @@ export default function Contact() {
 
         {/* Header */}
         <div className="text-center mb-8">
-          <span className="inline-block px-3 py-1 text-sm font-medium text-yellow-400 bg-yellow-900/30 rounded-full mb-4">
+          <span className="reveal inline-block px-3 py-1 text-sm font-medium text-yellow-400 bg-yellow-900/30 rounded-full mb-4">
             Get In Touch
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="reveal text-3xl md:text-4xl font-bold text-white mb-4" style={{ transitionDelay: "0.1s" }}>
             Let's Power Your Next Project
           </h2>
-          <p className="max-w-2xl mx-auto text-lg text-gray-300">
+          <p className="reveal max-w-2xl mx-auto text-lg text-gray-300" style={{ transitionDelay: "0.2s" }}>
             Ready to discuss your electrical needs? Contact our team of experts for a consultation and free quote.
           </p>
         </div>
@@ -173,7 +178,7 @@ export default function Contact() {
           <div className="lg:col-span-2 space-y-4">
 
             {/* Contact info card */}
-            <div className="p-5 bg-black/60 backdrop-blur-lg border border-yellow-500/20 rounded-xl shadow-lg">
+            <div className="reveal p-5 bg-black/60 backdrop-blur-lg border border-yellow-500/20 rounded-xl shadow-lg" style={{ transitionDelay: "0.2s" }}>
               <h3 className="text-lg font-semibold mb-4 text-white">Contact Information</h3>
               <div className="space-y-2">
                 {contactOptions.map((option, index) => (
@@ -195,7 +200,7 @@ export default function Contact() {
             </div>
 
             {/* Map card */}
-            <div className="p-5 bg-black/60 backdrop-blur-lg border border-yellow-500/20 rounded-xl shadow-lg">
+            <div className="reveal p-5 bg-black/60 backdrop-blur-lg border border-yellow-500/20 rounded-xl shadow-lg" style={{ transitionDelay: "0.3s" }}>
               <h3 className="text-lg font-semibold mb-4 text-white">Service Area</h3>
               <div className="aspect-video rounded-lg overflow-hidden">
                 <MapComponent />
@@ -211,7 +216,7 @@ export default function Contact() {
           </div>
 
           {/* Right — Form */}
-          <div className="lg:col-span-3 bg-black/60 backdrop-blur-lg border border-yellow-500/20 rounded-xl shadow-lg overflow-hidden">
+          <div className="reveal lg:col-span-3 bg-black/60 backdrop-blur-lg border border-yellow-500/20 rounded-xl shadow-lg overflow-hidden" style={{ transitionDelay: "0.25s" }}>
             {formState.submitted ? (
               <div className="p-10 flex flex-col items-center justify-center min-h-[500px] text-center">
                 <div className="w-16 h-16 bg-yellow-500/10 rounded-full flex items-center justify-center mb-6">
