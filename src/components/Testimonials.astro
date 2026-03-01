@@ -1,0 +1,145 @@
+---
+import { Star, Quote, Zap, CheckCircle, Award } from '@lucide/astro';
+
+const testimonials = [
+  {
+    rating: 5,
+    title: "Top-notch service from start to finish!",
+    content: "C&C Construction and Electrical exceeded our expectations on a commercial renovation project. Their team was punctual and professional every step of the way. The electrical work was clean, up to code, and finished ahead of schedule. I highly recommend them for any business in need of dependable contractors.",
+    icon: CheckCircle,
+    gradient: "from-yellow-400 via-amber-500 to-yellow-600",
+    offset: "md:mr-20",
+  },
+  {
+    rating: 5,
+    title: "Honest, reliable, and efficient.",
+    content: "We've worked with a lot of subcontractors over the years, and C&C stands out. They were transparent with their pricing, stuck to the agreed timeline, and took pride in their work. We'll definitely be partnering with them again.",
+    icon: Award,
+    gradient: "from-amber-400 via-yellow-500 to-orange-500",
+    offset: "md:ml-20",
+  },
+  {
+    rating: 5,
+    title: "Our go-to for electrical work!",
+    content: "C&C has helped us on several residential and light commercial projects, and they always deliver. Their crew is professional and easy to work with, plus they keep the job site clean. Great communication and trustworthy leadership. You can tell they care about doing it right.",
+    icon: Zap,
+    gradient: "from-yellow-500 via-amber-500 to-yellow-400",
+    offset: "md:mr-20",
+  },
+];
+---
+
+<section
+  id="testimonials"
+  class="relative bg-gray-950 py-16 overflow-hidden scroll-mt-[80px]"
+>
+  {/* Background grid */}
+  <div class="absolute inset-0 opacity-60">
+    <div class="absolute inset-0 bg-[linear-gradient(45deg,transparent_24%,rgba(255,255,255,0.03)_25%,rgba(255,255,255,0.03)_26%,transparent_27%,transparent_74%,rgba(255,255,255,0.03)_75%,rgba(255,255,255,0.03)_76%,transparent_77%)] bg-[length:40px_40px]" />
+  </div>
+
+  <div class="container mx-auto px-6 relative z-10">
+    <div class="max-w-7xl mx-auto">
+
+      {/* Header */}
+      <div class="text-center mb-10 animate-fade-in">
+        <div class="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-yellow-500/10 backdrop-blur-sm border border-yellow-500/30 mb-6">
+          <Quote class="w-5 h-5 text-yellow-400" />
+          <span class="text-yellow-100 font-semibold">Client Testimonials</span>
+        </div>
+
+        <h2 class="text-4xl md:text-5xl font-bold mb-5">
+          <span class="bg-linear-to-r from-white via-gray-100 to-white text-transparent bg-clip-text">
+            What Our
+          </span>
+          <br />
+          <span class="bg-linear-to-r from-yellow-400 via-amber-400 to-yellow-500 text-transparent bg-clip-text">
+            Clients Say
+          </span>
+        </h2>
+
+        <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+          Real feedback from real clients who trust C&C Construction and Electrical
+        </p>
+      </div>
+
+      {/* Testimonial Cards */}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {testimonials.map((testimonial) => (
+          <div class="group relative animate-slide-up">
+            <div class="relative p-8 rounded-3xl border-2 border-yellow-500/40 backdrop-blur-sm bg-linear-to-br from-black/80 via-gray-900/60 to-black/80 hover:border-yellow-500/80 hover:-translate-y-2 hover:shadow-2xl hover:shadow-yellow-500/20 transition-all duration-300 h-full">
+
+              {/* Corner icon */}
+              <div class="absolute top-6 right-6">
+                <testimonial.icon class="w-6 h-6 text-yellow-400" />
+              </div>
+
+              {/* Quote badge */}
+              <div class={`inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-linear-to-br ${testimonial.gradient} mb-5 shadow-lg`}>
+                <Quote class="w-6 h-6 text-black" />
+              </div>
+
+              {/* Stars */}
+              <div class="flex items-center gap-1 mb-4">
+                {Array.from({ length: testimonial.rating }).map(() => (
+                  <Star class="w-5 h-5 fill-current text-yellow-400" />
+                ))}
+              </div>
+
+              {/* Title */}
+              <h3 class="text-xl font-bold text-white mb-3 leading-tight group-hover:text-yellow-400 transition-colors duration-300">
+                {testimonial.title}
+              </h3>
+
+              {/* Content */}
+              <p class="text-gray-300 text-base leading-relaxed">
+                {testimonial.content}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* CTA */}
+      <div class="text-center mt-8 animate-fade-in">
+        <p class="text-xl text-gray-200 mb-6">Ready to join our satisfied clients?</p>
+        <button
+          id="testimonials-cta"
+          class="group relative px-10 py-4 bg-linear-to-r from-yellow-500 via-amber-500 to-yellow-600 text-black font-bold text-lg rounded-3xl overflow-hidden shadow-2xl border-2 border-yellow-400/30 hover:scale-105 hover:shadow-[0_20px_40px_rgba(251,191,36,0.3)] active:scale-95 transition-all duration-300"
+        >
+          <span class="relative z-10 flex items-center">
+            Get an Estimate
+            <span class="ml-3 group-hover:translate-x-2 transition-transform duration-300">→</span>
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slide-up {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.6s ease-out both;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.7s ease-out both;
+  }
+</style>
+
+<script>
+  document.getElementById("testimonials-cta")?.addEventListener("click", () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+  });
+</script>

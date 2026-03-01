@@ -4,6 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.tsx';
 import Services from '../components/Services.astro';
 import Portfolio from '../components/Portfolio.tsx';
+import Testimonials from '../components/Testimonials.astro'
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
@@ -14,4 +15,5 @@ import Portfolio from '../components/Portfolio.tsx';
 	<Hero />
   <Services />
   <Portfolio client:load />
+  <Testimonials />
 </Layout>
