@@ -1,46 +1,59 @@
-# Astro Starter Kit: Basics
+# CNC Electrical website (Frontend)
 
-```sh
-npm create astro@latest -- --template basics
+This is the frontend code for a business website built for a local electrical company. It is a statically generated site built with **Astro**, **React**, **TypeScript**, and **Tailwind CSS v4**, designed with smooth styling, responsive layout, and functional form handling.
+
+The site includes two routes: `/` (home page) and `/careers`. The home page is structured as a single scrolling page with hash-based section navigation (e.g., `/#services`, `/#contact`). Interactive components such as the job application form are built as React islands using Astro's partial hydration.
+
+Form submissions (contact and job applications) are sent to the company's email using a separate **Node.js + Express** backend that integrates with the **Twilio SendGrid API**.  
+➡️ You can view the backend code here: [github.com/Ramen96/Electric-Server](https://github.com/Ramen96/Electric-Server)
+
+---
+
+## Tech Stack
+
+- **TypeScript**
+- **Astro** – static site generation and routing (`/`, `/careers`)
+- **React** – interactive UI components (hydrated as Astro islands)
+- **Tailwind CSS v4** – utility-first styling via `@tailwindcss/vite`
+- **SendGrid (Twilio)** – for email delivery (via external backend)
+
+---
+
+## Features
+
+- Two routes: `/` and `/careers`
+- Home page supports smooth scrolling via URL hashes (e.g., `/#section`)
+- Responsive design across devices
+- Contact and job application forms
+- Forms submit data to external email backend using SendGrid API
+- HTTPS enabled via Certbot and Let's Encrypt
+- Custom 404 page
+
+---
+
+## Getting Started
+
+Clone the repo and install dependencies:
+
+```bash
+git clone https://github.com/Ramen96/Electric.git
+cd Electric
+npm install
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-## 🚀 Project Structure
+## Environment Variables
 
-Inside of your Astro project, you'll see the following folders and files:
+Create a `.env` file in the project root for development:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```
+PUBLIC_API_URL=http://your-server-ip
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+For production, create a `.env.production` file. Leave the value empty to use relative URLs proxied through Nginx:
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```
+PUBLIC_API_URL=
+```
