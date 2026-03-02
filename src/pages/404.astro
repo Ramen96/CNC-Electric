@@ -1,0 +1,227 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout title="404 - Page Not Found">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;600&display=swap');
+
+    .page-404 {
+      font-family: 'Barlow', sans-serif;
+      min-height: 100vh;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Animated electric grid background */
+    .grid-bg {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(234, 179, 8, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(234, 179, 8, 0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      animation: gridPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 1; }
+    }
+
+    /* Scanline overlay */
+    .scanlines {
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.15) 2px,
+        rgba(0,0,0,0.15) 4px
+      );
+      pointer-events: none;
+    }
+
+    /* Glowing corner accents */
+    .corner {
+      position: absolute;
+      width: 80px;
+      height: 80px;
+      border-color: rgba(234, 179, 8, 0.5);
+      border-style: solid;
+    }
+    .corner-tl { top: 2rem; left: 2rem; border-width: 2px 0 0 2px; }
+    .corner-tr { top: 2rem; right: 2rem; border-width: 2px 2px 0 0; }
+    .corner-bl { bottom: 2rem; left: 2rem; border-width: 0 0 2px 2px; }
+    .corner-br { bottom: 2rem; right: 2rem; border-width: 0 2px 2px 0; }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .error-code {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(8rem, 22vw, 18rem);
+      line-height: 0.85;
+      color: transparent;
+      -webkit-text-stroke: 2px rgba(234, 179, 8, 0.3);
+      position: relative;
+      letter-spacing: 0.05em;
+      animation: flicker 6s infinite;
+    }
+
+    .error-code::after {
+      content: '404';
+      position: absolute;
+      inset: 0;
+      color: #eab308;
+      -webkit-text-stroke: 0;
+      clip-path: polygon(0 45%, 100% 45%, 100% 55%, 0 55%);
+      animation: glitchSlice 5s infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes flicker {
+      0%, 95%, 100% { opacity: 1; }
+      96% { opacity: 0.4; }
+      97% { opacity: 1; }
+      98% { opacity: 0.2; }
+      99% { opacity: 1; }
+    }
+
+    @keyframes glitchSlice {
+      0%, 90%, 100% { transform: translateX(0); clip-path: polygon(0 45%, 100% 45%, 100% 55%, 0 55%); }
+      92% { transform: translateX(-6px); clip-path: polygon(0 40%, 100% 40%, 100% 50%, 0 50%); }
+      94% { transform: translateX(6px); clip-path: polygon(0 50%, 100% 50%, 100% 60%, 0 60%); }
+      96% { transform: translateX(0); }
+    }
+
+    .divider {
+      width: 120px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #eab308, transparent);
+      margin: 1rem auto;
+      animation: expand 1s ease-out 0.3s both;
+    }
+
+    @keyframes expand {
+      from { width: 0; opacity: 0; }
+      to { width: 120px; opacity: 1; }
+    }
+
+    .headline {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      color: #fbbf24;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.75rem;
+      animation: fadeUp 0.8s ease-out 0.5s both;
+    }
+
+    .subtext {
+      color: #9ca3af;
+      font-size: 1rem;
+      max-width: 380px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.6;
+      animation: fadeUp 0.8s ease-out 0.7s both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2.5rem;
+      background: #eab308;
+      color: #000;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      position: relative;
+      clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+      transition: background 0.2s, transform 0.2s;
+      animation: fadeUp 0.8s ease-out 0.9s both;
+    }
+
+    .btn-home:hover {
+      background: #fbbf24;
+      transform: translateY(-2px);
+    }
+
+    .bolt {
+      display: inline-block;
+      animation: boltFlash 2s ease-in-out infinite;
+    }
+
+    @keyframes boltFlash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    .status-bar {
+      margin-top: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: rgba(234, 179, 8, 0.4);
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: fadeUp 0.8s ease-out 1.1s both;
+    }
+
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #eab308;
+      animation: ping 2s ease-in-out infinite;
+    }
+
+    @keyframes ping {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.7); }
+    }
+  </style>
+
+  <div class="page-404">
+    <div class="grid-bg"></div>
+    <div class="scanlines"></div>
+    <div class="corner corner-tl"></div>
+    <div class="corner corner-tr"></div>
+    <div class="corner corner-bl"></div>
+    <div class="corner corner-br"></div>
+
+    <div class="content">
+      <div class="error-code">404</div>
+      <div class="divider"></div>
+      <h1 class="headline">Circuit Breaker Tripped</h1>
+      <p class="subtext">
+        Looks like this page got disconnected. Let's get you back on the grid.
+      </p>
+      <a href="/" class="btn-home">
+        <span class="bolt">⚡</span>
+        Back to Home
+      </a>
+      <div class="status-bar">
+        <div class="status-dot"></div>
+        C&amp;C Construction &amp; Electrical — Signal Lost
+      </div>
+    </div>
+  </div>
+</Layout>
