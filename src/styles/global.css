@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@source "../src/components";
+@source "../src/pages";
 
 /* ----------------------------------------
    Scroll-reveal animation (direction-aware)
