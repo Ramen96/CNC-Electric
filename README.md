@@ -5,7 +5,7 @@ This is the frontend code for a business website built for a local electrical co
 The site includes two routes: `/` (home page) and `/careers`. The home page is structured as a single scrolling page with hash-based section navigation (e.g., `/#services`, `/#contact`). Interactive components such as the job application form are built as React islands using Astro's partial hydration.
 
 Form submissions (contact and job applications) are sent to the company's email using a separate **Node.js + Express** backend that integrates with the **Twilio SendGrid API**.  
-➡️ You can view the backend code here: [github.com/Ramen96/Electric-Server](https://github.com/Ramen96/Electric-Server)
+-> You can view the backend code here: [github.com/Ramen96/Electric-Server](https://github.com/Ramen96/Electric-Server)
 
 ---
 
