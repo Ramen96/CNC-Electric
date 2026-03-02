@@ -2,6 +2,11 @@
 @source "../src/components";
 @source "../src/pages";
 
+
+html {
+  background: #000000;
+}
+
 /* ----------------------------------------
    Scroll-reveal animation (direction-aware)
    Add class="reveal" to any element.
