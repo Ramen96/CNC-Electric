@@ -3,8 +3,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import blueRidgeMountain from "../assets/BlueMountainRidge.png";
 import dunkinDonutsImg from "../assets/DunkinDonuts.png";
 import greaseMonkeyImg from "../assets/GreaseMonkey.png";
-import foodLionImg from "../assets/foodlionphoto.png";
-import foodLionImg1 from "../assets/foodlionphoto1.png";
 import yugenSushi from "../assets/Yugen_Sushi.png";
 import yugenSushi2 from "../assets/YugenSushi2.png";
 import yugenSushi3 from "../assets/Photo3.jpg";
@@ -33,22 +31,6 @@ const projects: Project[] = [
     image: dunkinDonutsImg,
     tags: ["Electrical Upgrade", "Main Branch Circuit", "Interior Wiring"],
     duration: "5 weeks",
-  },
-  {
-    title: "Retail Location",
-    description:
-      "Full electrical up-fit for a Food Lion retail location, including service rework, lighting, and storefront systems as part of a complete interior renovation to meet corporate standards.",
-    image: foodLionImg,
-    tags: ["Lighting Installation", "Electrical Remodel", "Retail Construction"],
-    duration: "3 months",
-  },
-  {
-    title: "Retail Location",
-    description:
-      "Full electrical up-fit for a Food Lion retail location, including service rework, lighting, and storefront systems as part of a complete interior renovation to meet corporate standards.",
-    image: foodLionImg1,
-    tags: ["Lighting Installation", "Electrical Remodel", "Retail Construction"],
-    duration: "3 months",
   },
   {
     title: "Grease Monkey Location",
