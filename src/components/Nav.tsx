@@ -7,6 +7,7 @@ interface HoverCardProps {
   visible: boolean;
   onEnter: () => void;
   onLeave: () => void;
+  align?: "left" | "right";
 }
 
 interface CopyFeedback {
@@ -45,14 +46,25 @@ const navSections = [
   { id: "careers", label: "Careers", isExternalRoute: true, path: "/careers" },
 ];
 
-const HoverCard = ({ children, visible, onEnter, onLeave }: HoverCardProps) => (
+// Invisible bridge fills the gap between the icon and the card so mouseLeave
+// doesn't fire while the cursor is travelling between them.
+const HoverCard = ({ children, visible, onEnter, onLeave, align = "right" }: HoverCardProps) => (
   <div
+    className="absolute top-full"
+    style={{ [align === "left" ? "left" : "right"]: 0 }}
     onMouseEnter={onEnter}
     onMouseLeave={onLeave}
-    className={`absolute top-full right-0 mt-2 bg-black/95 backdrop-blur-md rounded-xl border border-yellow-500/30 shadow-xl p-4 z-50 transition-all duration-200 ${visible ? "opacity-100 translate-y-0 scale-100 pointer-events-auto" : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
-      }`}
   >
-    {children}
+    {/* Invisible bridge — covers the gap so the card stays open */}
+    <div className="h-3 w-full" />
+    <div
+      className={`bg-black/95 backdrop-blur-md rounded-xl border border-yellow-500/30 shadow-xl p-4 z-50 transition-all duration-200 ${visible
+        ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
+        : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
+        }`}
+    >
+      {children}
+    </div>
   </div>
 );
 
@@ -128,13 +140,17 @@ export default function Nav() {
               >
                 {social.icon}
               </a>
+              {/* align="left" so the card opens to the RIGHT of the icon */}
               <HoverCard
+                align="left"
                 visible={socialHovered === social.id}
                 onEnter={() => setSocialHovered(social.id)}
                 onLeave={() => setSocialHovered(null)}
               >
-                <p className="text-yellow-400 font-semibold text-sm">Follow us on</p>
-                <p className="text-white text-sm">{social.name}</p>
+                <div className="min-w-24">
+                  <p className="text-yellow-400 font-semibold text-sm">Follow us on</p>
+                  <p className="text-white text-sm">{social.name}</p>
+                </div>
               </HoverCard>
             </div>
           ))}
@@ -155,8 +171,8 @@ export default function Nav() {
               <button
                 key={section.id}
                 className={`px-4 py-2 transition-colors duration-300 relative ${activeSection === section.id
-                    ? "text-yellow-400"
-                    : "text-gray-300 hover:text-yellow-400"
+                  ? "text-yellow-400"
+                  : "text-gray-300 hover:text-yellow-400"
                   }`}
                 onClick={() => scrollToSection(section.id)}
               >
@@ -316,8 +332,8 @@ export default function Nav() {
       {/* Mobile Menu — slide down full screen */}
       <div
         className={`xl:hidden fixed inset-x-0 top-16 z-40 transition-all duration-300 ${mobileMenuOpen
-            ? "opacity-100 translate-y-0 pointer-events-auto"
-            : "opacity-0 -translate-y-3 pointer-events-none"
+          ? "opacity-100 translate-y-0 pointer-events-auto"
+          : "opacity-0 -translate-y-3 pointer-events-none"
           }`}
         style={{ height: "calc(100vh - 4rem)" }}
       >
@@ -342,8 +358,8 @@ export default function Nav() {
                 <button
                   key={section.id}
                   className={`w-full flex items-center justify-between px-4 py-4 rounded-xl transition-all duration-200 group ${activeSection === section.id
-                      ? "text-yellow-400 bg-yellow-500/10"
-                      : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/5"
+                    ? "text-yellow-400 bg-yellow-500/10"
+                    : "text-gray-300 hover:text-yellow-400 hover:bg-yellow-500/5"
                     }`}
                   onClick={() => scrollToSection(section.id)}
                 >
