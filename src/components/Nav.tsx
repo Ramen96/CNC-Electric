@@ -4,9 +4,6 @@ import logo from "../assets/cncelectricco-logo.png";
 
 interface HoverCardProps {
   children: ReactNode;
-  visible: boolean;
-  onEnter: () => void;
-  onLeave: () => void;
   align?: "left" | "right";
 }
 
@@ -46,22 +43,21 @@ const navSections = [
   { id: "careers", label: "Careers", isExternalRoute: true, path: "/careers" },
 ];
 
-// Invisible bridge fills the gap between the icon and the card so mouseLeave
+// Invisible bridge fills the gap between the icon and the card so hover
 // doesn't fire while the cursor is travelling between them.
-const HoverCard = ({ children, visible, onEnter, onLeave, align = "right" }: HoverCardProps) => (
+// Visibility is now driven entirely by the parent's `group` class via CSS.
+const HoverCard = ({ children, align = "right" }: HoverCardProps) => (
   <div
-    className="absolute top-full"
+    className="absolute top-full pointer-events-none group-hover:pointer-events-auto"
     style={{ [align === "left" ? "left" : "right"]: 0 }}
-    onMouseEnter={onEnter}
-    onMouseLeave={onLeave}
   >
     {/* Invisible bridge — covers the gap so the card stays open */}
     <div className="h-3 w-full" />
     <div
-      className={`bg-black/95 backdrop-blur-md rounded-xl border border-yellow-500/30 shadow-xl p-4 z-50 transition-all duration-200 ${visible
-        ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-        : "opacity-0 -translate-y-2 scale-95 pointer-events-none"
-        }`}
+      className="bg-black/95 backdrop-blur-md rounded-xl border border-yellow-500/30 shadow-xl p-4 z-50
+        transition-all duration-200
+        opacity-0 -translate-y-2 scale-95
+        group-hover:opacity-100 group-hover:translate-y-0 group-hover:scale-100"
     >
       {children}
     </div>
@@ -72,9 +68,6 @@ export default function Nav() {
   const [activeSection, setActiveSection] = useState<string>("hero");
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
-  const [phoneHovered, setPhoneHovered] = useState<boolean>(false);
-  const [emailHovered, setEmailHovered] = useState<boolean>(false);
-  const [socialHovered, setSocialHovered] = useState<string | null>(null);
   const [copyFeedback, setCopyFeedback] = useState<CopyFeedback>({ phone: false, email: false });
 
   const copyToClipboard = async (text: string, type: keyof CopyFeedback) => {
@@ -129,24 +122,17 @@ export default function Nav() {
         {/* Left: Social Media */}
         <div className="flex items-center gap-3">
           {socialMediaLinks.map((social) => (
-            <div key={social.id} className="relative">
+            <div key={social.id} className="relative group">
               <a
                 href={social.url}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:scale-110 active:scale-90 inline-block"
-                onMouseEnter={() => setSocialHovered(social.id)}
-                onMouseLeave={() => setSocialHovered(null)}
               >
                 {social.icon}
               </a>
               {/* align="left" so the card opens to the RIGHT of the icon */}
-              <HoverCard
-                align="left"
-                visible={socialHovered === social.id}
-                onEnter={() => setSocialHovered(social.id)}
-                onLeave={() => setSocialHovered(null)}
-              >
+              <HoverCard align="left">
                 <div className="min-w-24">
                   <p className="text-yellow-400 font-semibold text-sm">Follow us on</p>
                   <p className="text-white text-sm">{social.name}</p>
@@ -190,30 +176,24 @@ export default function Nav() {
         <div className="flex items-center gap-3">
 
           {/* Phone */}
-          <div className="relative">
+          <div className="relative group">
             <a
               href="tel:7048794057"
               className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:scale-110 inline-block"
-              onMouseEnter={() => setPhoneHovered(true)}
-              onMouseLeave={() => setPhoneHovered(false)}
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
               </svg>
             </a>
-            <HoverCard
-              visible={phoneHovered}
-              onEnter={() => setPhoneHovered(true)}
-              onLeave={() => setPhoneHovered(false)}
-            >
-              <div className="flex items-center gap-3 min-w-[200px]">
+            <HoverCard>
+              <div className="flex items-center min-w-[200px]">
                 <div>
                   <p className="text-yellow-400 font-semibold text-sm">Call Now</p>
                   <p className="text-white text-sm">(704) 879-4057</p>
                 </div>
                 <button
                   onClick={(e) => { e.preventDefault(); copyToClipboard("7048794057", "phone"); }}
-                  className="p-2 text-gray-400 hover:text-yellow-400 hover:scale-105 transition-all duration-200 rounded-lg"
+                  className="ml-auto p-2 text-gray-400 hover:text-yellow-400 hover:scale-105 transition-all duration-200 rounded-lg"
                 >
                   {copyFeedback.phone ? (
                     <svg className="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -230,22 +210,16 @@ export default function Nav() {
           </div>
 
           {/* Email */}
-          <div className="relative">
+          <div className="relative group">
             <a
               href="mailto:electricco.cnc@gmail.com"
               className="p-2 text-gray-400 hover:text-yellow-400 transition-colors duration-300 hover:scale-110 inline-block"
-              onMouseEnter={() => setEmailHovered(true)}
-              onMouseLeave={() => setEmailHovered(false)}
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
               </svg>
             </a>
-            <HoverCard
-              visible={emailHovered}
-              onEnter={() => setEmailHovered(true)}
-              onLeave={() => setEmailHovered(false)}
-            >
+            <HoverCard>
               <div className="flex items-center gap-3 min-w-[280px]">
                 <div className="flex-1">
                   <p className="text-yellow-400 font-semibold text-sm">Send Email</p>
